@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public Interactable interactTarget;
 
     public Transform grabbingPoint;
+    public Transform grabbedItem;
     public string fertilizerType;
 
     int seedScore;
@@ -43,6 +44,10 @@ public class PlayerController : MonoBehaviour
         {
             interactTarget.Interact(this);
         }
+        if (!interactTarget && grabbedItem && Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Unequip();
+        }
     }
 
     public void AddScore(int score, string type)
@@ -62,8 +67,21 @@ public class PlayerController : MonoBehaviour
 
     public void Equip(Transform item)
     {
+        Unequip();
         item.SetParent(grabbingPoint);
         item.localPosition = Vector3.zero;
+        grabbedItem = item;
+    }
+    public void Unequip()
+    {
+        // 없으면 안해준다
+        if (!grabbedItem)
+            return;
+
+        // 계층구조에서 부모를 null으로 설정한다. 더이상 나를 안따라다님
+        fertilizerType = "";
+        grabbedItem.SetParent(null);
+        grabbedItem = null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
