@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
-    public int growInterval = 10;
+    public int growInterval = 20;
     public Sprite[] levels;
     public int currentLevel;
     public string type;
@@ -21,7 +21,7 @@ public class Plant : MonoBehaviour
     {
         while (currentLevel < levels.Length - 1)
         {
-            yield return new WaitForSeconds(growInterval + Random.Range(-4f, 4f));
+            yield return new WaitForSeconds(growInterval + Random.Range(-5f, 5f));
             if (currentLevel < levels.Length - 1)
             {
                 currentLevel += 1;

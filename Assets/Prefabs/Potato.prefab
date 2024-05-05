@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f313001fe241c441aa8547f02868657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growInterval: 10
+  growInterval: 20
   levels:
   - {fileID: 661064479, guid: ad2b02af851f5a24b98db1401d6b8789, type: 3}
   - {fileID: -1078513229, guid: ad2b02af851f5a24b98db1401d6b8789, type: 3}

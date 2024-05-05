@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fertilizer : MonoBehaviour
+public class Seed : MonoBehaviour
 {
-    public string type;
+    public GameObject seedPrefab;
     public void OnInteract(PlayerController player)
     {
         player.Equip(transform);
-        player.fertilizerType = type;
+        player.seedType = seedPrefab;
     }
 }

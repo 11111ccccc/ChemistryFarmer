@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-// OnEquip, OnUnequipÀ» ¸¸µé¾î ¾ÆÀÌÅÛ Âø¿ë/ÇØÁ¦ ÀÌº¥Æ® ¸¸µë
-// ¾ÆÀÌÅÛÀ» ÀåºñÇÏ°í ÀÖÀ»½Ã OnInteract ´ë½Å OnUseItem ÀÌº¥Æ® »ç¿ë
+// OnEquip, OnUnequipï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ OnInteract ï¿½ï¿½ï¿½ OnUseItem ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,7 +17,8 @@ public class PlayerController : MonoBehaviour
     public Transform grabbingPoint;
     public Transform grabbedItem;
     public string fertilizerType;
-
+    public GameObject seedType;
+    
     int seedScore;
     int potatoScore;
     int tomatoScore;
@@ -40,10 +41,18 @@ public class PlayerController : MonoBehaviour
         Vector2 moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
         rb.velocity = moveDir.normalized * speed;
+        
+        if (!interactTarget && seedType && Input.GetKeyDown((KeyCode.LeftShift)))
+        {
+            GameObject seed = Instantiate(seedType);
+            seed.transform.position = transform.position;
+        }
+        
         if (interactTarget && Input.GetKeyDown(KeyCode.LeftShift))
         {
             interactTarget.Interact(this);
         }
+        
         if (!interactTarget && grabbedItem && Input.GetKeyDown(KeyCode.LeftControl))
         {
             Unequip();
@@ -71,15 +80,17 @@ public class PlayerController : MonoBehaviour
         item.SetParent(grabbingPoint);
         item.localPosition = Vector3.zero;
         grabbedItem = item;
+        interactTarget = null;
     }
     public void Unequip()
     {
-        // ¾øÀ¸¸é ¾ÈÇØÁØ´Ù
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½
         if (!grabbedItem)
             return;
 
-        // °èÃþ±¸Á¶¿¡¼­ ºÎ¸ð¸¦ nullÀ¸·Î ¼³Á¤ÇÑ´Ù. ´õÀÌ»ó ³ª¸¦ ¾Èµû¶ó´Ù´Ô
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ nullï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½ï¿½ï¿½Ù´ï¿½
         fertilizerType = "";
+        seedType = null;
         grabbedItem.SetParent(null);
         grabbedItem = null;
     }
