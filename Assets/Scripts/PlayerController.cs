@@ -2,14 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
-// OnEquip, OnUnequip�� ����� ������ ����/���� �̺�Ʈ ����
-// �������� ����ϰ� ������ OnInteract ��� OnUseItem �̺�Ʈ ���
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
-    public TMP_Text SeedText;
     public TMP_Text PotatoText;
     public TMP_Text TomatoText;
     public Interactable interactTarget;
@@ -19,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public string fertilizerType;
     public GameObject seedType;
     
-    int seedScore;
     int potatoScore;
     int tomatoScore;
 
@@ -28,8 +24,6 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        if (!SeedText)
-            SeedText = GameObject.Find("SeedText").GetComponent<TMP_Text>();
         if (!PotatoText)
             PotatoText = GameObject.Find("PotatoText").GetComponent<TMP_Text>();
         if (!TomatoText)
@@ -61,17 +55,14 @@ public class PlayerController : MonoBehaviour
 
     public void AddScore(int score, string type)
     {
-        seedScore += score;
-        SeedText.text = "Seed: " + seedScore.ToString("D5");
-
         if (type == "Potato")
             potatoScore += score;
 
         if (type == "Tomato")
             tomatoScore += score;
 
-        PotatoText.text = "Potato: " + potatoScore.ToString("D5");
-        TomatoText.text = "Tomato: " + tomatoScore.ToString("D5");
+        PotatoText.text = "Potato : " + potatoScore.ToString("D5");
+        TomatoText.text = "Tomato : " + tomatoScore.ToString("D5");
     }
 
     public void Equip(Transform item)
@@ -84,11 +75,9 @@ public class PlayerController : MonoBehaviour
     }
     public void Unequip()
     {
-        // ������ �����ش�
         if (!grabbedItem)
             return;
 
-        // ������������ �θ� null���� �����Ѵ�. ���̻� ���� �ȵ���ٴ�
         fertilizerType = "";
         seedType = null;
         grabbedItem.SetParent(null);
