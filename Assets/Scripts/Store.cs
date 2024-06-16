@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Start : MonoBehaviour
+public class Store : MonoBehaviour
 {
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            SceneManager.LoadScene("Farm");
+            SceneManager.LoadScene("Store");
         }
     }
-}
+}    
